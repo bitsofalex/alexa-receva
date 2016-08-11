@@ -66,7 +66,7 @@ ParcelTracker.prototype.eventHandlers.onSessionEnded = function (sessionEndedReq
 
 ParcelTracker.prototype.intentHandlers = {
     "GetParcelTrackingIntent": function (intent, session, response) {
-        handleNewFactRequest(response);
+        handleNewFactRequest(intent, response);
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {
@@ -87,12 +87,13 @@ ParcelTracker.prototype.intentHandlers = {
 /**
  * Gets a random new fact from the list and returns to the user.
  */
-function handleNewFactRequest(response) {
-    
+function handleNewFactRequest(intent, response) {
     getTrackingDetails(function (trackingDetails) {
+        var trackingId = intent.slots.a.value + intent.slots.b.value + intent.slots.c.value + intent.slots.d.value;
         var speechOutput = "Your parcel is " +
             trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Status +
-            ". It is currently at " + trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Events[0].Location;
+            ". It is currently at " + trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Events[0].Location +
+            ". And your I.D. is " + trackingId;
         var cardTitle = "Your parcel";
 
         // todo create response
