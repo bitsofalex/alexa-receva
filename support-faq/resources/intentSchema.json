@@ -1,0 +1,13 @@
+{
+  "intents": [
+    {
+      "intent": "SupportIntent",
+      "slots": [
+        {
+          "name": "POST_TYPE",
+          "type": "POST_TYPE"
+        }
+      ]
+    }
+  ]
+}
