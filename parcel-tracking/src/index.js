@@ -28,6 +28,10 @@ var APP_ID = undefined; //OPTIONAL: replace with "amzn1.echo-sdk-ams.app.[your-u
  */
 var AlexaSkill = require('./AlexaSkill');
 
+var https = require('https');
+
+var urlPrefix = "https://digitalapi-stest.npe.auspost.com.au/track/v3/search?q=JDQ008520501000600208";
+
 /**
  * SpaceGeek is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
@@ -84,8 +88,35 @@ ParcelTracker.prototype.intentHandlers = {
  * Gets a random new fact from the list and returns to the user.
  */
 function handleNewFactRequest(response) {
-    // todo create response
-    // response.tellWithCard(speechOutput, cardTitle, speechOutput);
+    
+    getTrackingDetails(function (trackingDetails) {
+        var speechOutput = "Your parcel is " +
+            trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Status +
+            ". It is currently at " + trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Events[0].Location;
+        var cardTitle = "Your parcel";
+
+        // todo create response
+        response.tellWithCard(speechOutput, cardTitle, speechOutput);
+    });
+}
+
+function getTrackingDetails(eventCallback) {
+    var url = urlPrefix;
+
+    https.get(url, function(res) {
+        var body = '';
+
+        res.on('data', function (chunk) {
+            body += chunk;
+        });
+
+        res.on('end', function () {
+            var trackingDetails = JSON.parse(body);
+            eventCallback(trackingDetails);
+        });
+    }).on('error', function (e) {
+        console.log("Got error: ", e);
+    });
 }
 
 // Create the handler that responds to the Alexa Request.
