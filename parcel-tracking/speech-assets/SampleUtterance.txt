@@ -1,5 +1,6 @@
-GetParcelTrackingIntent my parcel location I.D. {a} {b} {c} {d}
-GetParcelTrackingIntent my parcel location with I.D. {a} {b} {c} {d}
-GetParcelTrackingIntent my parcel I.D. {a} {b} {c} {d}
-GetParcelTrackingIntent where is my parcel I.D. {a} {b} {c} {d}
-GetParcelTrackingIntent where is my parcel with I.D. {a} {b} {c} {d}
+GetParcelTrackingIntent my parcel location
+GetParcelTrackingIntent where is my parcel
+GetParcelTrackingIntent where is my parcel location
+GetParcelTrackingIntent my package location
+GetParcelTrackingIntent where is my package
+GetParcelTrackingIntent where is my package location

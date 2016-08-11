@@ -89,11 +89,11 @@ ParcelTracker.prototype.intentHandlers = {
  */
 function handleNewFactRequest(intent, response) {
     getTrackingDetails(function (trackingDetails) {
-        var trackingId = intent.slots.a.value + intent.slots.b.value + intent.slots.c.value + intent.slots.d.value;
-        var speechOutput = "Your parcel is " +
-            trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Status +
-            ". It is currently at " + trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Events[0].Location +
-            ". And your I.D. is " + trackingId;
+        // var trackingId = intent.slots.a.value + intent.slots.b.value + intent.slots.c.value + intent.slots.d.value;
+        var speechOutput = "You have " + trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles.length +
+            " parcel. Your parcel is " +trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Status +
+            ". It is currently at " + trackingDetails.QueryTrackEventsResponse.TrackingResults[0].Consignment.Articles[0].Events[0].Location;
+            // ". And your I.D. is " + trackingId;
         var cardTitle = "Your parcel";
 
         // todo create response
