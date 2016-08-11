@@ -1,0 +1,42 @@
+{
+  "status": "Success",
+  "QueryTrackEventsResponse": {
+    "TrackingResults": [
+      {
+        "ReturnMessage": {
+          "Code": "ESB-BUS-DATA-100",
+          "Description": "Success"
+        },
+        "TrackingID": "JDQ008520501000600208",
+        "Consignment": {
+          "ConsignmentID": "JDQ0085205",
+          "Articles": [
+            {
+              "ArticleID": "JDQ008520501000600208",
+              "EventNotification": "01",
+              "ProductName": "eParcel",
+              "Status": "In Transit",
+              "DestinationCountry": "Australia",
+              "ExpectedDeliveryDate": "20150430",
+              "Events": [
+                {
+                  "EventDescription": "Processed through Australia Post facility",
+                  "EventDateTime": "2015-04-27T15:52:36+10:00",
+                  "Location": "St Leonards, NSW",
+                  "WorkCentreID": "279240",
+                  "EventCode": "NSS-ER42",
+                  "Status": "In Transit"
+                },
+                {
+                  "EventDescription": "Shipping information received by Australia Post",
+                  "EventDateTime": "2015-04-27T15:48:29+10:00",
+                  "EventCode": "ADMIN-ER39"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

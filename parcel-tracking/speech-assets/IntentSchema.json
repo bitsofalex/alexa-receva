@@ -1,0 +1,34 @@
+{
+  "intents": [
+    {
+      "intent": "GetParcelTrackingIntent",
+      "slots": [
+        {
+          "name": "a",
+          "type": "CHARS"
+        },
+        {
+          "name": "b",
+          "type": "CHARS"
+        },
+        {
+          "name": "c",
+          "type": "CHARS"
+        },
+        {
+          "name": "d",
+          "type": "CHARS"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
