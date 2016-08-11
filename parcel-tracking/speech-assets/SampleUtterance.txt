@@ -1,0 +1,6 @@
+GetParcelTrackingIntent parcel
+GetParcelTrackingIntent my parcel
+GetParcelTrackingIntent where is my parcel
+GetParcelTrackingIntent tell me where is my parcel
+GetParcelTrackingIntent give me the location of my parcel
+GetParcelTrackingIntent my parcel location
