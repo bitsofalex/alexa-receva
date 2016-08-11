@@ -34,20 +34,20 @@ var AlexaSkill = require('./AlexaSkill');
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
-var Fact = function () {
+var ParcelTracker = function () {
     AlexaSkill.call(this, APP_ID);
 };
 
 // Extend AlexaSkill
-Fact.prototype = Object.create(AlexaSkill.prototype);
-Fact.prototype.constructor = Fact;
+ParcelTracker.prototype = Object.create(AlexaSkill.prototype);
+ParcelTracker.prototype.constructor = ParcelTracker;
 
-Fact.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
+ParcelTracker.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
     //console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId);
     // any initialization logic goes here
 };
 
-Fact.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
+ParcelTracker.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     //console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
     handleNewFactRequest(response);
 };
@@ -55,12 +55,12 @@ Fact.prototype.eventHandlers.onLaunch = function (launchRequest, session, respon
 /**
  * Overridden to show that a subclass can override this function to teardown session state.
  */
-Fact.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
+ParcelTracker.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
     //console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId + ", sessionId: " + session.sessionId);
     // any cleanup logic goes here
 };
 
-Fact.prototype.intentHandlers = {
+ParcelTracker.prototype.intentHandlers = {
     "GetParcelTrackingIntent": function (intent, session, response) {
         handleNewFactRequest(response);
     },
@@ -91,6 +91,6 @@ function handleNewFactRequest(response) {
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
     // Create an instance of the SpaceGeek skill.
-    var fact = new Fact();
+    var fact = new ParcelTracker();
     fact.execute(event, context);
 };
