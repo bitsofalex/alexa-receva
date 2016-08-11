@@ -24,21 +24,13 @@ var HTTP_PREFIX= 'digitalapi.auspost.com.au';
 skill.launch(function(request, res) {
     //SET DEFAULTS
     res.session('POST_SPEED','REGULAR');
-    if (res.session('POST_HOME')){
-        
-        var prompt = 'Let me calculate the postage. Are you mailing International or local?';
-        res.say(prompt).reprompt(prompt).shouldEndSession(false);
+    if (!res.session('POST_HOME'))
+    res.session('POST_HOME',3000);
     
-    }
-    else
-    {
-         //SET DEFAULTS
-        res.session('POST_HOME',3000);
-        
-        var prompt = 'Let me calculate the postage. Tell me what your postcode is.';
-        res.say(prompt).reprompt(prompt).shouldEndSession(false);
-    }
-    
+    //PERFORM PROMPTS
+    var prompt = "Let's work out how much postage is. Say 'set' followed by your postcode.";
+    res.say(prompt).reprompt(prompt).shouldEndSession(false);
+
 });
 
 //method for storing postcode
@@ -53,7 +45,7 @@ skill.intent('setPostCodeIntent',
     function(req,res){
         var postcode = req.slot('SET_POST_CODE');
         res.session('POST_HOME',postcode.toString());
-        res.say(postcode.toString() + " is saved.").shouldEndSession(false);
+        res.say(postcode.toString() + " is saved. What kind of parcel are you sending?").shouldEndSession(false);
     }
 );
 
@@ -81,7 +73,8 @@ skill.intent('SupportIntent', {
                 //Set post speed (regular or express). If not given, default to regular.
                 if(req.slot('POST_SPEED'))
                     res.session('POST_SPEED',req.slot('POST_SPEED').toUpperCase());
-                    
+                if(!res.session('POST_HOME'))
+                    res.session('POST_HOME',3000);
 
                 var POST_TARGET = res.session('POST_TARGET').toString();
                 var POST_HOME = res.session('POST_HOME').toString();
@@ -118,7 +111,7 @@ skill.intent('SupportIntent', {
             else if (res.session('POST_TARGET')) res.say(res.session('POST_SPEED').toString() +" post parcel to post code "+res.session('POST_TARGET').toString()+" is " + res.session('POST_TARGET_COST').toString()+" dollars.").shouldEndSession(false).send();
             
             //IF USER DIDNT SPECIFY A TARGET POSTCODE AND HAVE NO PREVIOUS QUERIES
-            else res.say('The price of a 500 gram prepaid regular post satchel is 8.25 dollars. Tell me the post code as well for a more accurate price.').shouldEndSession(false).send();
+            else res.say('The price of a 500 gram domestic regular parcel is 8.25 dollars. Tell me the kind of parcel and then add the post code after so I can give you a more accurate price.').shouldEndSession(false).send();
         
             //IMPORTANT! - NEED THIS SO ALEXA WAITS FOR THE HTTP REQUEST
             return false;
@@ -129,6 +122,9 @@ skill.intent('SupportIntent', {
 
 //method for getting postcode - called last in the schema!
 skill.intent('getPostCodeIntent',
+    {
+        'utterances': ['{|my} {post|postcode}']
+    },
     function(req , res){
             if(res.session('POST_HOME'))
                 res.say(res.session('POST_HOME').toString()).shouldEndSession(false);
@@ -136,6 +132,72 @@ skill.intent('getPostCodeIntent',
                 res.say("I don't have your postcode. Tell me what your postcode is.").shouldEndSession(false);
     }
 );
+
+//method for LINKING TO MY POST TO GET ACCOUNT DETAILS
+skill.intent('linkReceva', 
+    //pass slots and utterances first
+    {
+        'slots': {
+            'POST_LINK_NUMBER': 'AMAZON.FOUR_DIGIT_NUMBER'
+        },
+        'utterances': ['Link to my post using {POST_LINK_NUMBER}']
+    },
+    function(req,res){
+
+        //replace this with RECEVA set endpoint
+        var postlinknumber = req.slot('POST_LINK_NUMBER').toString();
+        var validationlist = {
+            '1234':'Ryan',
+            '5678':'Sue'
+        }
+
+        //save the mypost account details
+        if (validationlist[postlinknumber])
+        {
+            res.session('POST_LINK_NUMBER',validationlist[postlinknumber]);
+            res.say("Hi "+validationlist[postlinknumber]+". You've successfully linked your mypost account.").shouldEndSession(false);
+        }else{
+            res.say("Sorry I don't recognise that number. Try again.").shouldEndSession(false);
+        }
+    }
+);
+
+//method for setting a message for the Postman
+skill.intent('setReceva', 
+    //pass slots and utterances first
+    {
+        'slots': {
+        'POST_MESSAGE': 'AMAZON.LITERAL'
+        },
+        'utterances': ['{give|set|tell} {|the postman|postman} {|message|know} {sample|POST_MESSAGE} using LITERAL']
+    },
+    function(req,res){
+
+        //replace this with RECEVA set endpoint
+        var postmessage = req.slot('POST_MESSAGE');
+
+        res.session('POST_MESSAGE',postmessage.toString());
+        res.say("You've left the following message for the postman. "+postmessage).shouldEndSession(false);
+    }
+);
+
+//method for getting a message for the Postman
+skill.intent('getReceva', 
+    //pass slots and utterances first
+    {
+        'utterances': ['{get|repeat|play|tell} {|postman|message}']
+    },
+    function(req,res){
+        //replace this with RECEVA get endpoint
+        var postmessage = res.session('POST_MESSAGE');
+
+        if (postmessage)
+            res.say("You've left the following message for the postman. "+postmessage).shouldEndSession(false);
+        else
+            res.say("You didn't leave a message for the postman. Say 'tell the postman' and then leave your message to leave some drop-off instructions for the postman." ).shouldEndSession(false);
+    }
+);
+
 
 //END OF INTENTS
 

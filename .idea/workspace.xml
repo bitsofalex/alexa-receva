@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e4a3348e-b54c-42bf-a998-bacba99e8fec" name="Default" comment="added basic AUSPOST api integration&#10;TODO add custom post code and or weights">
+    <list default="true" id="e4a3348e-b54c-42bf-a998-bacba99e8fec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/support-faq/support-faq.zip" afterPath="$PROJECT_DIR$/support-faq/support-faq.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/support-faq/index.js" afterPath="$PROJECT_DIR$/support-faq/index.js" />
     </list>
@@ -30,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/support-faq/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-2.4794872">
-              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+              <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -222,7 +221,13 @@
       <option name="project" value="LOCAL" />
       <updated>1470922599174</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added custom post code &#10;TODO: Add weights (small/medium/large)">
+      <created>1470930411617</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1470930411617</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -265,7 +270,8 @@
     <MESSAGE value="added support faq skill" />
     <MESSAGE value="added support faq skill&#10;TODO: Debug international cost intent" />
     <MESSAGE value="added basic AUSPOST api integration&#10;TODO add custom post code and or weights" />
-    <option name="LAST_COMMIT_MESSAGE" value="added basic AUSPOST api integration&#10;TODO add custom post code and or weights" />
+    <MESSAGE value="added custom post code &#10;TODO: Add weights (small/medium/large)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added custom post code &#10;TODO: Add weights (small/medium/large)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -291,7 +297,7 @@
     <entry file="file://$PROJECT_DIR$/support-faq/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.4794872">
-          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
           <folding />
         </state>
       </provider>
