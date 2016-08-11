@@ -19,12 +19,11 @@ skill.intent('SupportIntent', {
         },
         'utterances': ['{|cost} {POST_TYPE} {|cost}']
     },
-    function(request, response) {
-        if(request.slot('POST_TYPE').value == 'International')
-            response.say('forty dollars').send();
-        if(request.slot('POST_TYPE').value == 'Local')
-            response.say('twenty dollars').send();
-        return false;
+    function(req, res) {
+        if(req.slot('POST_TYPE') == 'international')
+            res.say('forty dollars');
+        if(req.slot('POST_TYPE') == 'local')
+            res.say('twenty dollars');
     }
 );
 
