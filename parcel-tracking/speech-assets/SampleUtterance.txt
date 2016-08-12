@@ -4,3 +4,7 @@ GetParcelTrackingIntent where is my parcel location
 GetParcelTrackingIntent my package location
 GetParcelTrackingIntent where is my package
 GetParcelTrackingIntent where is my package location
+GetParcelTrackingIntent find my parcel
+GetParcelTrackingIntent find my package
+GetParcelTrackingIntent do you have my parcel
+GetParcelTrackingIntent you have my parcel

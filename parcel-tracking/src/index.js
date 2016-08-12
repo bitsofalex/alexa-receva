@@ -30,7 +30,7 @@ var AlexaSkill = require('./AlexaSkill');
 
 var https = require('https');
 
-var urlPrefix = "https://digitalapi-stest.npe.auspost.com.au/track/v3/search?q=JDQ008520501000600208";
+var urlPrefix = "https://digitalapi-stest.npe.auspost.com.au/track/v3/search?q=44P7635456010821";
 
 /**
  * SpaceGeek is a child of AlexaSkill.
