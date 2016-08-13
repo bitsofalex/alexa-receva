@@ -6,8 +6,52 @@
         {
           "name": "POST_TYPE",
           "type": "POST_TYPE"
+        },
+        {
+          "name": "POST_TARGET",
+          "type": "AMAZON.FOUR_DIGIT_NUMBER"
+        },
+        {
+          "name": "POST_SPEED",
+          "type": "POST_SPEED"
         }
       ]
+    },
+    {
+      "intent": "setPostCodeIntent",
+      "slots": [
+        {
+          "name": "SET_POST_CODE",
+          "type": "AMAZON.FOUR_DIGIT_NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "setReceva",
+      "slots": [
+        {
+          "name": "POST_MESSAGE",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "linkReceva",
+      "slots": [
+        {
+          "name": "POST_LINK_NUMBER",
+          "type": "AMAZON.FOUR_DIGIT_NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "getReceva"
+    },
+    {
+      "intent": "getPostCodeIntent"
+    },
+    {
+      "intent":"close"
     }
   ]
 }

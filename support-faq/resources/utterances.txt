@@ -1,7 +1,34 @@
-HelloWorldIntent say hello
-HelloWorldIntent say hello world
-HelloWorldIntent hello
-HelloWorldIntent say hi
-HelloWorldIntent say hi world
-HelloWorldIntent hi
-HelloWorldIntent how are you
+SupportIntent {POST_TYPE} postage
+SupportIntent {POST_TYPE} cost
+SupportIntent cost {POST_TYPE}
+SupportIntent cost {POST_TYPE} {POST_TARGET}
+SupportIntent cost {POST_TYPE} {POST_SPEED} {POST_TARGET}
+SupportIntent postage {POST_TYPE} {POST_TARGET}
+SupportIntent postage {POST_TYPE} {POST_SPEED} {POST_TARGET}
+SupportIntent price {POST_TYPE} {POST_TARGET}
+SupportIntent price {POST_TYPE} {POST_SPEED} {POST_TARGET}
+
+setPostCodeIntent save {SET_POST_CODE}
+setPostCodeIntent set {SET_POST_CODE}
+setPostCodeIntent set post to {SET_POST_CODE}
+setPostCodeIntent set post code to {SET_POST_CODE}
+setPostCodeIntent set postcode to {SET_POST_CODE}
+
+getReceva what is my message
+getReceva what message
+getReceva get message
+getReceva what did I 
+
+setReceva tell the postman {leave it at the door|POST_MESSAGE} using LITERAL
+setReceva tell postman {place it near the mat|POST_MESSAGE} using LITERAL
+setReceva give postman {Put it in the mailbox|POST_MESSAGE} using LITERAL
+setReceva give message {Behind the red boxes|POST_MESSAGE} using LITERAL
+
+linkReceva Link to my post using {POST_LINK_NUMBER}
+linkReceva Link to post using {POST_LINK_NUMBER}
+
+getPostCodeIntent what is my post
+getPostCodeIntent what is my postcode
+getPostCodeIntent my postcode
+
+close close

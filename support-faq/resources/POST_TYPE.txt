@@ -1,2 +1,3 @@
-Domestic
-International
+international
+local
+domestic
