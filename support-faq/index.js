@@ -3,16 +3,44 @@ module.change_code = 1;
 
 //START OF MODULES
 var Alexa = require('alexa-app');
+var firebase = require('firebase');
 var requestPromise = require('request-promise');
 var skill = new Alexa.app('post');
+var db;
+var addressesRef;
+var postlinknumber;
 //END OF MODULES
 
+//INITIALISE db
+function initialiseFirebase(){
+    firebase.initializeApp({
+        serviceAccount: {
+            projectId: "receva-courier-app-9c866",
+            clientEmail: "lambda@receva-courier-app-9c866.iam.gserviceaccount.com",
+            privateKey: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCECGd33ukqFAA8\nZs+Q9Hfa4c+k+7MCAFB0wG9gNQKLNeJRwmq8fK8ClyBpspj4U8JnN/kPa9PT92k5\nma4cfAp1qd6nQyeIdAXNchBOcDqdYnz1gvXuOHBfARU2c2c5RZrunCjCpEINjI+T\n+9Txh3C23hRiTZFtovmwB9UffVXlBAqZuGQyGEif9+JoQVgVDc30hCFORoOD7MEP\njZvK881fXiQo/wVg8IH1QFSMhtfJtJtvG5s/Z0g5bk+VYJ0/sTqU32VL2TMANfWM\nlGipvvNKEBV4bi/PYj+fcaaU9tMBGGTZSIS+TXaJmsw0d1Aq8Dp7JwY0pzYUtRJK\n2XbWH6LLAgMBAAECggEASm2yZhBywBWmTGZoe/5T0j+ZHhgFQQuMT0RrhIBdfrxR\naGWAZeCjh4JJ80uKj/InlKgo7liKgOLnnmDTlZsXCl1H9mIU1wcQfk/egVkisbXj\nW0MH/9IxBl1F5/wGJHLoc7n0AEU4NwsVpQZBdCY1k+B8/S1c3cERn/nKWoX89awK\n9Zjs3UsjItVDMdpv6ZvJ2vfiHvUZGKjRggGCn2CZmUetaOyKN4WZcFpElwFoSXt7\n6Iwe3WNaeUBAoqCZ8TFhY6/ktozWImagFYttamz8w/RV3NmBoMdlwqR2QYgpqv6n\nTHXBmYNkCOH1pAkqXtY4KXSQki/O8iTxuravqptAgQKBgQDvnIoBi7pK05mZSDkC\nrzQt2ypPTv3LRa/NWO4ZSc+cPkBTmQasLJF30+nQuzRfVL+ZaIKlKUkiTBtSm35X\nt5i1t4WF56MljWIsYLpFm8I14JvGIQgY4ONNGnU0UzR2BtDzCM9gNBEaWEovJjrl\n3NAqytqRWX5C+jKBYlXxupkh/QKBgQCNEDlYL1j/ztwxWXrZv8u+GR34a/99RopE\n6AzoKqPaP9GZrWSJS1Kdi/g9oLgkyPiEttNzFRrEftKke0LdFES9CndqtgXYylOa\nMFFpv9zCZQMLCXYQwzGgErf6QOIa/OHfDj+dSHR6Q62IgMYEP7U+ltI1K211sgsF\nUxzkjt2uZwKBgQDKcI1ApRbt5TzefmB8Xh5Np99lRi2ysdvIOJxhjTT0oruiZaV3\njegRP19KVP/4kxeVuvC2Ld12NqrW7jyeS6Wf0b/j1ELIlV0edVKrQN+iuXOiv4Gh\n0073c6UWYj3uge/Dhev/Mb5JbdKvZzNXxWmy3dQv/VZprA1Dtxs5shdy2QKBgDIx\nPqZBGqLS4QhyNUM7emxmlYJqMxtJOTOxeb42Rd0HbjYHO0ma0oeaYTbUdBEqrTrT\nrsM5FDAsjBjYfv8ZEihNjBYdNFFiFIM9hApjqVJGDOIleKwYOBUj8/CIm6tMpbXv\nZPU67a7/W8TBRTQH0x61HZCrpiQFuOQpIZO1ve0rAoGBAIDziXiJMzuJelX8Ua7E\nuToJh0DO/SMtjQkJb6ZHsdmCwo6Kg+K2FXTwn1sRGcODTgh+yypgMVgqatVH1vOG\nuPjgRNOcWJCO4xjkn0v5sBkJ5zgkeViUJ57Abn/VyNz1MXP8puicP+rMquAXRo+4\nMgtiasuNSyJHZG9t7sDxNMg/\n-----END PRIVATE KEY-----\n"
+        },
+        databaseURL: "https://receva-courier-app-9c866.firebaseio.com"
+    });
+    db = firebase.database();
+    addressesRef = db.ref('/Addresses');
+}
 
 
 //START OF ENDPOINT DATA
 // Set the URL for the Domestic Parcel Calculation service
 var HTTP_API_KEY = "483b58b5-b634-4fa3-abb8-78191b7afaa1";
 var HTTP_PREFIX= 'digitalapi.auspost.com.au';
+
+var validationlist = {
+            '1234':'Ryan',
+            '5678':'Sue',
+            '8910':'Ryan'
+}
+var firebaseusers = {
+            'Ryan':'12345',
+            'Sue':'32345'
+}
+
 
 //END OF ENDPOINTS
 
@@ -31,6 +59,8 @@ skill.launch(function(request, res) {
     var prompt = "Let's work out how much postage is. Say 'set' followed by your postcode.";
     res.say(prompt).reprompt(prompt).shouldEndSession(false);
 
+    //INITIALISE DATABASE
+    initialiseFirebase();
 });
 
 //method for storing postcode
@@ -95,15 +125,15 @@ skill.intent('SupportIntent', {
                 };
 
                 //send GET request to AUSPOST post calculator API
-                requestPromise(options).catch(function (err) {
-                    res.say("Error in connecting to Australia Post.").shouldEndSession(false).send();
-                })
+                requestPromise(options)
                 .then(function (api) {
                     if (api)
                     //save the POST_TARGET_COST for later use
                     res.session('POST_TARGET_COST',api.postage_result.total_cost);
                     //need to add .send() for asynchronous skills. You can use Alexa while waiting for the HTTP response.
                     res.say(POST_SPEED + " post parcel is " + api.postage_result.total_cost + " dollars. ").shouldEndSession(false).send();
+                }).catch(function (err) {
+                    res.say("Error in connecting to Australia Post.").shouldEndSession(false).send();
                 })
             }
 
@@ -145,12 +175,7 @@ skill.intent('linkReceva',
     function(req,res){
 
         //replace this with RECEVA set endpoint
-        var postlinknumber = req.slot('POST_LINK_NUMBER').toString();
-        var validationlist = {
-            '1234':'Ryan',
-            '5678':'Sue'
-        }
-
+        postlinknumber = req.slot('POST_LINK_NUMBER').toString();
         //save the mypost account details
         if (validationlist[postlinknumber])
         {
@@ -173,11 +198,22 @@ skill.intent('setReceva',
     },
     function(req,res){
 
-        //replace this with RECEVA set endpoint
-        var postmessage = req.slot('POST_MESSAGE');
 
-        res.session('POST_MESSAGE',postmessage.toString());
-        res.say("You've left the following message for the postman. "+postmessage).shouldEndSession(false);
+        if (res.session('POST_LINK_NUMBER'))
+        {
+            //replace this with RECEVA set endpoint
+            var postmessage = req.slot('POST_MESSAGE');
+            res.session('POST_MESSAGE',postmessage.toString()); 
+            firebase.database().ref('Addresses/'+firebaseusers[postlinknumber]).update({
+                deliveryInstructions: postmessage
+            });
+            
+            res.say("You've left the following message for the postman. "+postmessage).shouldEndSession(false).send();
+        }
+        else 
+        res.say("You need to link your my post account first. Go to the my post website and generate a link code.").shouldEndSession(false).send();
+         
+        return false;
     }
 );
 
@@ -188,17 +224,46 @@ skill.intent('getReceva',
         'utterances': ['{get|repeat|play|tell} {|postman|message}']
     },
     function(req,res){
-        //replace this with RECEVA get endpoint
-        var postmessage = res.session('POST_MESSAGE');
 
-        if (postmessage)
-            res.say("You've left the following message for the postman. "+postmessage).shouldEndSession(false);
-        else
-            res.say("You didn't leave a message for the postman. Say 'tell the postman' and then leave your message to leave some drop-off instructions for the postman." ).shouldEndSession(false);
+        if (res.session('POST_LINK_NUMBER'))
+        {
+            //replace this with RECEVA get endpoint
+            var postmessage = res.session('POST_MESSAGE');
+            if (postmessage)
+                res.say("You've left the following message for the postman. "+postmessage).shouldEndSession(false);
+            else
+                res.say("You didn't leave a message for the postman. Say 'tell the postman' and then leave your message to leave some drop-off instructions for the postman." ).shouldEndSession(false);
+        }
+        else 
+        res.say("You need to link your my post account first. Go to the my post website and generate a link code.").shouldEndSession(false);
     }
 );
+
+//method for getting a message for the Postman
+skill.intent('close', 
+    //pass slots and utterances first
+    {
+        'utterances': ['{close|stop}']
+    },
+    function(req,res){
+        res.say("See you later!").shouldEndSession(true);
+    }
+);
+
+//method for changing firebase -> addresses
+//Addresses -> name: 12345, 32345
+//Addresses -> deliveryInstructions
+//Login -> raye.magp@gmail.com
+//Pass -> auspost
+//Login -> sue.hogg@auspost.com.au
+//Pass -> auspost
+
+//Resecure call script for call
+
+//RECEVA 
 
 
 //END OF INTENTS
 
 module.exports = skill;
+

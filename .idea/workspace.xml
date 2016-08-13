@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4a3348e-b54c-42bf-a998-bacba99e8fec" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/support-faq/support-faq.zip" afterPath="$PROJECT_DIR$/support-faq/support-faq.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/support-faq/index.js" afterPath="$PROJECT_DIR$/support-faq/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/support-faq/package.json" afterPath="$PROJECT_DIR$/support-faq/package.json" />
     </list>
     <ignored path="alexa-receva.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +29,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/support-faq/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.04347826">
-              <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+            <state vertical-scroll-proportion="1.286445">
+              <caret line="50" column="4" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -100,6 +103,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="alexa-receva" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alexa-receva" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alexa-receva" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tokenizer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -231,7 +248,19 @@
       <option name="project" value="LOCAL" />
       <updated>1470942428162</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added spoofed tokenizer myPost page&#10;TODO: Add weights (small/medium/large)">
+      <created>1470945657859</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1470945657859</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added spoofed tokenizer myPost page&#10;TODO: Add weights (small/medium/large)">
+      <created>1470945681539</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1470945681539</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -276,7 +305,8 @@
     <MESSAGE value="added basic AUSPOST api integration&#10;TODO add custom post code and or weights" />
     <MESSAGE value="added custom post code &#10;TODO: Add weights (small/medium/large)" />
     <MESSAGE value="added account linking + leaving receva message (spoofed) &#10;TODO: Add weights (small/medium/large)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added account linking + leaving receva message (spoofed) &#10;TODO: Add weights (small/medium/large)" />
+    <MESSAGE value="added spoofed tokenizer myPost page&#10;TODO: Add weights (small/medium/large)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added spoofed tokenizer myPost page&#10;TODO: Add weights (small/medium/large)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -309,8 +339,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/support-faq/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04347826">
-          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/support-faq/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.286445">
+          <caret line="50" column="4" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
           <folding />
         </state>
       </provider>
