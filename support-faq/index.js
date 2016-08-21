@@ -5,13 +5,12 @@ module.change_code = 1;
 var Alexa = require('alexa-app');
 var firebase = require('firebase');
 var requestPromise = require('request-promise');
-var skill = new Alexa.app('post');
-var db;
-var addressesRef;
-var postlinknumber;
+var skill = new Alexa.app('post')
 //END OF MODULES
 
-//INITIALISE db
+//START OF INITIALISING db
+var db;
+var addressesRef;
 function initialiseFirebase(){
     firebase.initializeApp({
         serviceAccount: {
@@ -24,7 +23,7 @@ function initialiseFirebase(){
     db = firebase.database();
     addressesRef = db.ref('/Addresses');
 }
-
+//END OF INITIALISING DB
 
 //START OF ENDPOINT DATA
 // Set the URL for the Domestic Parcel Calculation service
@@ -37,8 +36,9 @@ var validationlist = {
             '8910':'Ryan'
 }
 var firebaseusers = {
-            'Ryan':'12345',
-            'Sue':'32345'
+            '1234':'12345',
+            '5678':'32345',
+            '8910':'12345'
 }
 
 
@@ -130,7 +130,7 @@ skill.intent('SupportIntent', {
                     if (api)
                     //save the POST_TARGET_COST for later use
                     res.session('POST_TARGET_COST',api.postage_result.total_cost);
-                    //need to add .send() for asynchronous skills. You can use Alexa while waiting for the HTTP response.
+                    //need to add .send() for asynchronous operations. You can use Alexa while waiting for the HTTP response.
                     res.say(POST_SPEED + " post parcel is " + api.postage_result.total_cost + " dollars. ").shouldEndSession(false).send();
                 }).catch(function (err) {
                     res.say("Error in connecting to Australia Post.").shouldEndSession(false).send();
@@ -175,11 +175,11 @@ skill.intent('linkReceva',
     function(req,res){
 
         //replace this with RECEVA set endpoint
-        postlinknumber = req.slot('POST_LINK_NUMBER').toString();
+        var postlinknumber = req.slot('POST_LINK_NUMBER').toString();
         //save the mypost account details
         if (validationlist[postlinknumber])
         {
-            res.session('POST_LINK_NUMBER',validationlist[postlinknumber]);
+            res.session('POST_LINK_NUMBER',postlinknumber);
             res.say("Hi "+validationlist[postlinknumber]+". You've successfully linked your mypost account.").shouldEndSession(false);
         }else{
             res.say("Sorry I don't recognise that number. Try again.").shouldEndSession(false);
@@ -187,7 +187,7 @@ skill.intent('linkReceva',
     }
 );
 
-//method for setting a message for the Postman
+//method for setting a message to Receva
 skill.intent('setReceva', 
     //pass slots and utterances first
     {
@@ -197,14 +197,14 @@ skill.intent('setReceva',
         'utterances': ['{give|set|tell} {|the postman|postman} {|message|know} {sample|POST_MESSAGE} using LITERAL']
     },
     function(req,res){
-
-
         if (res.session('POST_LINK_NUMBER'))
         {
             //replace this with RECEVA set endpoint
             var postmessage = req.slot('POST_MESSAGE');
             res.session('POST_MESSAGE',postmessage.toString()); 
-            firebase.database().ref('Addresses/'+firebaseusers[postlinknumber]).update({
+
+            //send to firebase
+            firebase.database().ref('Addresses/'+firebaseusers[res.session('POST_LINK_NUMBER')]).update({
                 deliveryInstructions: postmessage
             });
             
@@ -217,7 +217,7 @@ skill.intent('setReceva',
     }
 );
 
-//method for getting a message for the Postman
+//method for getting a message for Receva
 skill.intent('getReceva', 
     //pass slots and utterances first
     {
